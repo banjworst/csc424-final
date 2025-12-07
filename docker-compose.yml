@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+
+  backend-api:
+    build: ./backend-docker-info-api
+    container_name: backend-api
+    ports:
+      - "3001:3001"
+    expose:
+      - "3001"
+
+  project1:
+    build: ./project1-csc424-home
+    container_name: project1
+    ports:
+      - "5173:5173"
+    expose:
+      - "5173"
+
+  project2:
+    build: ./project2-docker-info
+    container_name: project2
+    ports:
+      - "5174:5174"
+    expose:
+      - "5174"
+
+  nginx:
+    build: ./nginx
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-api
+      - project1
+      - project2
+
